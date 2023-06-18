@@ -9,20 +9,24 @@ export class TeamService {
     public teamRepository : TeamRepository
   ) {}
   async synchTeamDb(dataResponse: any) : Promise<void>{
-    for (const data of dataResponse){
-      const existTeam  = await this.teamRepository.findOne({where: {name:data.name}});
+    for (let i = 0; i < dataResponse.length; i++){
+      const obj = dataResponse[i];
+      const existTeam  = await this.teamRepository.findOne({where: {name:obj.club.name}});
       if (!existTeam){
         await this.teamRepository.create({
-          name: data.name,
-          abbr: data.abbr,
-          logo: data.logo
+          name: obj.club.name,
+          abbr: obj.club.abbr,
+          shortName: obj.club.shortName,
+          logo: 'None'
         })
       }
       else {
+        console.log('Co vo day ',obj.club.name)
         type TeamField = keyof typeof fieldMapping;
         const fieldMapping = {
-          abbr: data.abbr,
-          logo: data.logo
+          name: obj.club.name,
+          abbr: obj.club.abbr,
+          shortName: obj.club.shortName,
         };
         const updatedFields: Partial<Team> = {};
         let updated = false;
@@ -36,10 +40,11 @@ export class TeamService {
         } 
         if (updated) {
           await this.teamRepository.updateById(existTeam.id, updatedFields);
-          await this.teamRepository.findById(existTeam.id);
         }
       }
     }
+    return
+    console.log('Out ham syncTeam')
   }
   //   const existTeam = await this.teamRepository.findOne({where: {name:data.name}});
   //   if (!existTeam){

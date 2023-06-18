@@ -3,6 +3,7 @@ import {injectable, /* inject, */ BindingScope, inject} from '@loopback/core';
 import { TeamService } from './team.service';
 import * as fs from 'fs';  
 import fetch from "node-fetch";
+import { data } from 'cheerio/lib/api/attributes';
 const axios = require('axios');
 
 @injectable({scope: BindingScope.TRANSIENT})
@@ -19,9 +20,10 @@ export class DataFetchService {
         }
       });
       const data = response.data;
-      console.log(data)
+      console.log(data);
+      return data;
     }
-   
+    
     catch(error){
       throw new Error('Fail to fetchAndStore')
     }
