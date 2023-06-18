@@ -2,8 +2,7 @@ import { repository } from '@loopback/repository';
 import {injectable, /* inject, */ BindingScope, inject} from '@loopback/core';
 import { TeamService } from './team.service';
 import * as fs from 'fs';  
-import fetch from "node-fetch";
-import { data } from 'cheerio/lib/api/attributes';
+
 const axios = require('axios');
 
 @injectable({scope: BindingScope.TRANSIENT})
@@ -14,13 +13,13 @@ export class DataFetchService {
   ) {}
   public async fetchAndStore(folderName : string, fileName : string,url : string) : Promise<any>{
     try {
-      const response = await axios.get('https://footballapi.pulselive.com/football/compseasons/578/teams', {
+      const response = await axios.get(url, {
         headers: {
           'Origin': 'https://www.premierleague.com'
         }
       });
       const data = response.data;
-      console.log(data);
+      // console.log(data);
       return data;
     }
     

@@ -7,12 +7,12 @@ export async function main(options: ApplicationConfig = {}) {
   const app = new WebApplication(options);
   await app.boot();
  
-  const job = new CronJob(' * * * * *', async function() {
-    await syncDatabaseSystem(app);
-    });
-    job.start();
+  // const job = new CronJob(' * * * * *', async function() {
+  //   await syncDatabaseSystem(app);
+  //   });
+  //   job.start();
   await app.start();
-
+  await syncDatabaseSystem(app);
   const url = app.restServer.url;
   console.log(`Server is running at ${url}`);
   console.log(`Try ${url}/ping`);
