@@ -14,13 +14,15 @@ export class TeamService {
       if (!existTeam){
         await this.teamRepository.create({
           name: data.name,
-          abbr: data.club.abbr
+          abbr: data.abbr,
+          logo: data.logo
         })
       }
       else {
         type TeamField = keyof typeof fieldMapping;
         const fieldMapping = {
-          abbr: data.club.abbr
+          abbr: data.abbr,
+          logo: data.logo
         };
         const updatedFields: Partial<Team> = {};
         let updated = false;

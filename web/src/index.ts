@@ -1,12 +1,16 @@
 import {ApplicationConfig, WebApplication} from './application';
 import { syncDatabaseSystem } from './mirgations';
-
+const CronJob = require('cron').CronJob;
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new WebApplication(options);
   await app.boot();
-  await syncDatabaseSystem(app);
+ 
+  const job = new CronJob(' * * * * *', async function() {
+    await syncDatabaseSystem(app);
+    });
+    job.start();
   await app.start();
 
   const url = app.restServer.url;

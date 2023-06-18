@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 @injectable({scope: BindingScope.TRANSIENT})
 export class DataFetchService {
   constructor(
-    @inject('TeamService')
+    @inject('services.TeamService')
     public teamService : TeamService,
   ) {}
   public async fetchAndStore(folderName : string, fileName : string,url : string) : Promise<any>{
