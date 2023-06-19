@@ -39,7 +39,7 @@ export class LeagueSeasonTeamService {
         }
       })
       if (existLST){
-        console.log('This team have been added!')
+        // console.log('This team have been added!')
       }
       else {
         await this.leagueSeasonTeamRepository.create({

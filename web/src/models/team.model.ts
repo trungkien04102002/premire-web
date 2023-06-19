@@ -41,9 +41,6 @@ export class Team extends Entity {
   @hasOne(() => Stadium)
   stadium: Stadium;
 
-  @hasMany(() => Match)
-  matches: Match[];
-
   constructor(data?: Partial<Team>) {
     super(data);
   }

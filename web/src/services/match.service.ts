@@ -18,15 +18,39 @@ export class MatchService {
     public teamRepository : TeamRepository
   ) {}
   public curIdLS : number = 1;
-  public async getDictClub(filter?: Filter<Team>): Promise<FieldDictionary> {
-    const teams : Team[]  = await this.teamRepository.find(filter);
+  // public async find(
+  //   @param.filter(Team) filter?: Filter<Team>,
+  // ): Promise<Team[]> {
+  //   return this.teamRepository.find(filter);
+  // }
+
+  async getAllMyModels(): Promise<Team[]> {
+    return this.teamRepository.find();
+  }
+
+  public async getDictClub(): Promise<FieldDictionary> {
+    const teams = await this.getAllMyModels();
     const result: FieldDictionary = {};
     for (const team of teams) {
-      if(!team.name && team.id !== undefined){
+      if(team.name !== undefined && team.id !== undefined){
         result[team.name] = team.id;
+        // console.log('IN DICTCLUB FUNCTION',result)
       }    
     }
     return result;
+  }
+
+  public formatDate(dateString: string): string {
+    // Convert the timestamp to a Date object
+    let m = moment.tz(dateString, 'ddd DD MMM YYYY, HH:mm:ss z', 'Europe/London');
+    let timestamp = m.valueOf();
+    let dateObj = new Date(timestamp);
+  
+    // Format the date string
+    let formattedDate = dateObj.toISOString();
+  
+    // Return the formatted date string
+    return formattedDate;
   }
 
   public async formatDateAndTime(dateString: string): Promise<[string, string]> {
@@ -52,6 +76,7 @@ export class MatchService {
 
   public async synchMatchDb(dataResponse: any) : Promise<void>{
     const dictClub = await this.getDictClub();
+    // console.log('DICT CLUB',dictClub)
     for (let i = 0; i < dataResponse.length; i++){
       const obj = dataResponse[i]; 
       const id : number = obj.id; // => This is refId
@@ -69,6 +94,7 @@ export class MatchService {
         })
       }
       else {
+        // console.log('The match have been added!')
       // console.log('Co vo day ',obj.club.name)
       type MatchField = keyof typeof fieldMapping;
         const fieldMapping = {

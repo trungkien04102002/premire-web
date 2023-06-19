@@ -37,7 +37,7 @@ export class StadiumService {
         }
       }
       else {
-        console.log('Co bi trung nhe')
+        // console.log('Co bi trung nhe')
       }
     }
     console.log('Success update the stadium!')

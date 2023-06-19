@@ -69,11 +69,6 @@ export class Match extends Entity {
   })
   gameweek: number;
 
-  @property({
-    type: 'number',
-  })
-  teamId?: number;
-
   constructor(data?: Partial<Match>) {
     super(data);
   }

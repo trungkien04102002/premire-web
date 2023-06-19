@@ -4,4 +4,3 @@ export * from './team-stadium.controller';
 export * from './league-season.controller';
 export * from './league-season-team.controller';
 export * from './league-season-match.controller';
-export * from './team-match.controller';

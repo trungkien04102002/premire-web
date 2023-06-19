@@ -8,9 +8,9 @@ export async function migrateTeam(app : WebApplication, folderName : string ) : 
     const teamService : TeamService =  await app.get('services.TeamService');
     const url : string= 'https://footballapi.pulselive.com/football/compseasons/578/teams'
     // const url : string = 'http://localhost:5000/api/teams'
-    const teamData = await dataFetchService.fetchAndStore(folderName, 'teamsData.json', url)
+    const teamData = await dataFetchService.fetchAndStore(folderName, 'teamsData.json', url);
     // console.log('teamData when call syncTeamData function;',teamData)
-    await teamService.synchTeamDb(teamData)
-    console.log('FINISH MIGRATE TEAM')
+    await teamService.synchTeamDb(teamData);
+    console.log('FINISH MIGRATE TEAM');
     return
 }
