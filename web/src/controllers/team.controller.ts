@@ -111,6 +111,7 @@ export class TeamController {
     return this.teamRepository.findById(id, filter);
   }
 
+  
   @patch('/teams/{id}')
   @response(204, {
     description: 'Team PATCH success',
