@@ -1,6 +1,7 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
 import {Team} from './team.model';
 import {LeagueSeasonTeam} from './league-season-team.model';
+import {Match} from './match.model';
 
 @model({
   settings: {
@@ -55,6 +56,9 @@ export class LeagueSeason extends Entity {
 
   @hasMany(() => Team, {through: {model: () => LeagueSeasonTeam}})
   teams: Team[];
+
+  @hasMany(() => Match)
+  matches: Match[];
 
   constructor(data?: Partial<LeagueSeason>) {
     super(data);

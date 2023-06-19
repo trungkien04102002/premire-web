@@ -25,13 +25,10 @@ export  async function formatDateAndTime(dateString: string): Promise<[string, s
 interface QueryParams {
     [key: string]: string | number | boolean;
 }
-interface FixtureData {
-   
-}
+interface FixtureData {}
   
 interface ApiResponse {
-    content: FixtureData[];
-    
+    content: FixtureData[];  
 }
   
 async function fetchFixures() : Promise<FixtureData[]>{
