@@ -21,11 +21,11 @@ export class Match extends Entity {
   })
   matchDate: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  matchTime: string;
+  // @property({
+  //   type: 'string',
+  //   required: true,
+  // })
+  // matchTime: string;
 
   @property({
     type: 'string',

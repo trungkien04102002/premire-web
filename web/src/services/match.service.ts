@@ -40,7 +40,7 @@ export class MatchService {
     return result;
   }
 
-  public formatDate(dateString: string): string {
+  public async formatDate(dateString: string): Promise<string> {
     // Convert the timestamp to a Date object
     let m = moment.tz(dateString, 'ddd DD MMM YYYY, HH:mm:ss z', 'Europe/London');
     let timestamp = m.valueOf();
@@ -80,13 +80,14 @@ export class MatchService {
     for (let i = 0; i < dataResponse.length; i++){
       const obj = dataResponse[i]; 
       const id : number = obj.id; // => This is refId
-      const date_time  = await this.formatDateAndTime(obj.kickoff.label)
+      // const date_time  = await this.formatDateAndTime(obj.kickoff.label)
+      const date = await this.formatDate(obj.kickoff.label)
       const existMatch  = await this.matchRepository.findOne({where:{refId : id}});
       if (!existMatch){
         await this.matchRepository.create({
           leagueSeasonId: this.curIdLS,
-          matchDate: date_time[0],
-          matchTime: date_time[1],
+          matchDate: date,
+          // matchTime: date_time[1],
           homeId : dictClub[obj.teams[0].team.club.name],
           awayId : dictClub[obj.teams[1].team.club.name],
           refId: obj.id,  // => This is refId
@@ -98,8 +99,8 @@ export class MatchService {
       // console.log('Co vo day ',obj.club.name)
       type MatchField = keyof typeof fieldMapping;
         const fieldMapping = {
-          matchDate: date_time[0],
-          matchTime: date_time[1],
+          matchDate: date,
+          // matchTime: date_time[1],
         };
         const updatedFields: Partial<Match> = {};
         let updated = false;
@@ -113,7 +114,7 @@ export class MatchService {
         } 
         if (updated) {
           await this.matchRepository.updateById(existMatch.id, updatedFields);
-            }
+          }
       }
     }
     return
