@@ -12,4 +12,6 @@ Fix homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew doctor
 —————————
- 
+insert into season(name) values('2023/2024');
+insert into league(name,logo) values ('Premire League', 'https://resources.premierleague.com/premierleague/competitions/competition_1.png');
+insert into leagueseason(leagueid,seasonid,name,logo) values ('1','1','Premire League 2023/2024','https://resources.premierleague.com/premierleague/competitions/competition_1.png');

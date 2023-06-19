@@ -6,7 +6,7 @@ export function parseDateString(dateString: string): number {
     return timestamp;
 }
 
-function formatDateAndTime(timestamp: number): [string, string] {
+export  function formatDateAndTime(timestamp: number): [string, string] {
   // Convert the timestamp to a Date object
   let dateObj = new Date(timestamp);
 
