@@ -1,0 +1,15 @@
+Connect to postgreSQL:
+Way 1:  recommend
+docker exec -it my-postgres-db bash   
+psql -U trungkien04102002 mydatabase
+Way 2:
+docker exec -it my-postgres-db createdb -U trungkien04102002 mydatabase
+docker exec -it my-postgres-db psql -U trungkien04102002 mydatabase
+
+Phan biet Started, Restarted, Created, Recreated.
+—————————
+Fix homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew doctor
+—————————
+ 
