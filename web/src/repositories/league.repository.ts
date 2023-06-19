@@ -2,8 +2,8 @@ import {inject, Getter} from '@loopback/core';
 import {DefaultCrudRepository, repository, HasManyThroughRepositoryFactory} from '@loopback/repository';
 import {DbDataSource} from '../datasources';
 import {League, LeagueRelations, Season, LeagueSeason} from '../models';
-import {LeagueSeasonRepository} from './league-season.repository';
 import {SeasonRepository} from './season.repository';
+import {LeagueSeasonRepository} from './league-season.repository';
 
 export class LeagueRepository extends DefaultCrudRepository<
   League,

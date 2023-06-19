@@ -11,27 +11,27 @@ export class Season extends Entity {
 
   @property({
     type: 'string',
-    default: 'Season name',
+    default: '2023/2024',
   })
-  seasonName?: string;
+  name?: string;
 
   @property({
     type: 'string',
-    default: 'Season fullname',
+    default: 'Premier League',
   })
   fullName?: string;
 
   @property({
     type: 'string',
-    default: '2020',
+    default: '12/08/2023',
   })
-  start?: string;
+  startDate?: string;
 
   @property({
     type: 'string',
-    default: '2021',
+    default: '19/05/2024',
   })
-  end?: string;
+  endDate?: string;
 
 
   constructor(data?: Partial<Season>) {

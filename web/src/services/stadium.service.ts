@@ -15,7 +15,7 @@ export class StadiumService {
     for (let i = 0; i < dataResponse.length; i++){
       const obj = dataResponse[i];
       const nameStadium = obj.grounds[0].name;
-      console.log('All name -',i,' - ', nameStadium)
+      // console.log('All name -',i,' - ', nameStadium)
       const existStadium  = await this.stadiumRepository.findOne({where: {name:nameStadium}});
       if(!existStadium){
         const nameClub : string = obj.club.name;
@@ -24,7 +24,7 @@ export class StadiumService {
           throw new Error('Cannot file this owner stadium!')
         }
         else {
-          let capacity : number = -1;
+          let capacity : number =  30460;
           if(obj.grounds[0].capacity){
             capacity = obj.grounds[0].capacity
           }

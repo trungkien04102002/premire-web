@@ -1,6 +1,4 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
-import {Team} from './team.model';
-import {LeagueSeasonTeam} from './league-season-team.model';
+import {Entity, model, property} from '@loopback/repository';
 
 @model({
   settings: {
@@ -43,18 +41,16 @@ export class LeagueSeason extends Entity {
 
   @property({
     type: 'string',
-    default: 'League Season name',
+    required: true,
   })
-  name?: string;
+  name: string;
 
   @property({
     type: 'string',
-    default: 'URL',
+    required: true,
   })
-  logo?: string;
+  logo: string;
 
-  @hasMany(() => Team, {through: {model: () => LeagueSeasonTeam}})
-  teams: Team[];
 
   constructor(data?: Partial<LeagueSeason>) {
     super(data);
