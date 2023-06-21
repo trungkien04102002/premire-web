@@ -34,22 +34,29 @@ export class TeamService {
       'Tottenham Hotspur':'https://resources.premierleague.com/premierleague/badges/rb/t6.svg',
       'West Ham United':'https://resources.premierleague.com/premierleague/badges/rb/t21.svg',
       'Wolverhampton Wanderers':'https://resources.premierleague.com/premierleague/badges/rb/t39.svg'
+      // 'Leeds United':'https://resources.premierleague.com/premierleague/badges/rb/t2.svg' 
     }
     // console.log(typeof(dictImg))
     for (let i = 0; i < dataResponse.length; i++){
       const obj = dataResponse[i];
+      // console.log(obj.club.name);
       const existTeam  = await this.teamRepository.findOne({where: {name:obj.club.name}});
+    
+      var logo : string = 'None'
+      if (obj.club.name !== undefined){
+          if(dictImg[obj.club.name] !== undefined){
+            logo = dictImg[obj.club.name]
+          }
+          
+          // console.log(logo)
+      }
       if (!existTeam){
-        // var logo : string = 'None'
-        // if (obj.club.name !== undefined){
-        //     var logo = dictImg[obj.club.name]
-        //     // console.log(logo)
-        // }
         await this.teamRepository.create({
           name: obj.club.name,
           abbr: obj.club.abbr,
           shortName: obj.club.shortName,
-          logo : dictImg[obj.club.name]
+          // logo : dictImg[obj.club.name]
+          logo : logo
         })
       }
       else {
