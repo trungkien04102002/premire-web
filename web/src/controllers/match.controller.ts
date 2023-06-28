@@ -52,11 +52,13 @@ export class MatchController {
     description: 'Match model count',
     content: {'application/json': {schema: CountSchema}},
   })
-  async count(
+  public async count(
     @param.where(Match) where?: Where<Match>,
   ): Promise<Count> {
     return this.matchRepository.count(where);
   }
+
+
 
   @get('/matches')
   @response(200, {
@@ -75,7 +77,33 @@ export class MatchController {
   ): Promise<Match[]> {
     return this.matchRepository.find(filter);
   }
-
+  // ========================= START ====================
+  @get('/matches/{pageSize}/{page}')
+  @response(200, {
+    description: 'Array of Match model with Pagination',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Match, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async findPagination(
+    @param.path.number('pageSize') pageSize: number,
+    @param.path.number('page') page: number,
+  ): Promise<Match[]> {
+    const limit = pageSize;
+    const where = {}; // you can add a filter here if needed
+    const countResult = await this.matchRepository.count(where);
+    const count = countResult.count;
+    const skip = (page - 1) * limit;
+    const totalPages = Math.ceil(count / limit);
+    const matches = await this.matchRepository.find({limit, skip});
+    return matches;
+  }
+ // ========================= END ====================
   @patch('/matches')
   @response(200, {
     description: 'Match PATCH success count',

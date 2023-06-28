@@ -5,3 +5,6 @@ export * from './season.model';
 export * from './league-season.model';
 export * from './league-season-team.model';
 export * from './match.model';
+export * from './user.model';
+export * from './ticket.model';
+export * from './todo.model';

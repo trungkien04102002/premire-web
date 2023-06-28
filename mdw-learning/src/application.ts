@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
@@ -12,6 +13,7 @@ import path from 'path';
 import {MySequence} from './sequence';
 import { AuthenticationComponent } from '@loopback/authentication';
 import { JWTAuthenticationComponent, UserServiceBindings } from '@loopback/authentication-jwt';
+import { DbDataSource } from './datasources';
 
 export {ApplicationConfig};
 
@@ -43,13 +45,13 @@ export class MdwLearningApplication extends BootMixin(
         nested: true,
       },
     };
-        // ------ ADD SNIPPET AT THE BOTTOM ---------
+    // ------ ADD SNIPPET AT THE BOTTOM ---------
     // Mount authentication system
     this.component(AuthenticationComponent);
     // Mount jwt component
     this.component(JWTAuthenticationComponent);
     // Bind datasource
-    // this.dataSource(DbDataSource, UserServiceBindings.DATASOURCE_NAME);
+    this.dataSource(DbDataSource, UserServiceBindings.DATASOURCE_NAME);
     // ------------- END OF SNIPPET -------------
   }
 }
