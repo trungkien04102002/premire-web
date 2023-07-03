@@ -19,13 +19,18 @@ export class Match extends Entity {
     type: 'string',
     required: true,
   })
-  matchDate: string;
+  matchDateISOS: string;
 
   // @property({
   //   type: 'string',
   //   required: true,
   // })
   // matchTime: string;
+  @property({
+    type: 'string',
+    required: true,
+  })
+  time: string;
 
   @property({
     type: 'string',
@@ -59,6 +64,10 @@ export class Match extends Entity {
 
   @property({
     type: 'number',
+  })
+  matchdayId?: number;
+  @property({
+    type: 'number',
     required: true,
   })
   refId: number;
@@ -69,6 +78,35 @@ export class Match extends Entity {
   })
   gameweek: number;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  homeName: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  awayName: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  awayLogo: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  homeLogo: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  stadium: string;
   constructor(data?: Partial<Match>) {
     super(data);
   }

@@ -17,7 +17,7 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {Team} from '../models';
+import {Match, Stadium, Team} from '../models';
 import {TeamRepository} from '../repositories';
 
 export class TeamController {
@@ -71,11 +71,62 @@ export class TeamController {
     },
   })
   async find(
-    @param.filter(Team) filter?: Filter<Team>,
+    @param.filter(Team) filter?: Filter<Team & { include?: Stadium }>,
   ): Promise<Team[]> {
+    const include = [{ relation: 'stadium' }];
+    filter = filter ?? {};
+    filter.include = filter.include ?? include;
     return this.teamRepository.find(filter);
   }
 
+
+ // ========================= START ====================
+  // @get('/teams')
+  // @response(200, {
+  //   description: 'Array of Match model with Pagination',
+  //   content: {
+  //     'application/json': {
+  //       schema: {
+  //         type: 'object',
+  //         properties: {
+  //           team: {
+  //             type: 'array',
+  //             items: getModelSchemaRef(Team, { includeRelations: true }),
+  //           },
+  //           pageInfo: {
+  //             type: 'object',
+  //             properties: {
+  //               page: { type: 'number' },
+  //               numPages: { type: 'number' },
+  //               pageSize: { type: 'number' },
+  //               numEntries: { type: 'number' },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // })
+  // async findPagination(
+  //   @param.query.number('pageSize') pageSize: number,
+  //   @param.query.number('page') page: number,
+  // ): Promise<{ teams: Team[]; pageInfo: any }> {
+  //   const limit = pageSize;
+  //   const where = {}; // you can add a filter here if needed
+  //   const countResult: Count = await this.teamRepository.count(where);
+  //   const count = countResult.count;
+  //   const skip = (page - 1) * limit;
+  //   const totalPages = Math.ceil(count / limit);
+  //   const teams = await this.teamRepository.find({ limit, skip });
+  //   const pageInfo = {
+  //     page,
+  //     numPages: totalPages,
+  //     pageSize: limit,
+  //     numEntries: count,
+  //   };
+  //   return { teams, pageInfo };
+  // }
+ // ========================= END ====================
   @patch('/teams')
   @response(200, {
     description: 'Team PATCH success count',

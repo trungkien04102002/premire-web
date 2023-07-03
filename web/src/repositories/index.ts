@@ -7,3 +7,4 @@ export * from './league-season.repository';
 export * from './league-season-team.repository';
 export * from './match.repository';
 export * from './todo.repository';
+export * from './matchday.repository';

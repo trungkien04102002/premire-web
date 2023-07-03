@@ -8,3 +8,4 @@ export * from './match.model';
 export * from './user.model';
 export * from './ticket.model';
 export * from './todo.model';
+export * from './matchday.model';
